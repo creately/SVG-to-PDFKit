@@ -2508,56 +2508,164 @@ var SVGtoPDF = function(doc, svg, x, y, options) {
         // Check if the font is already registered in the document
         if (bold && italic) {
           if (doc._registeredFonts.hasOwnProperty(family + '-BoldItalic')) {
-            return family + '-BoldItalic';
+            return {
+              fontNameorLink: family + '-BoldItalic',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
           } else if (doc._registeredFonts.hasOwnProperty(family + '-Italic')) {
             fontOptions.fauxBold = true;
-            return family + '-Italic';
+            return {
+              fontNameorLink: family + '-Italic',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
           } else if (doc._registeredFonts.hasOwnProperty(family + '-Bold')) {
             fontOptions.fauxItalic = true;
-            return family + '-Bold';
+            return {
+              fontNameorLink: family + '-Bold',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
           } else if (doc._registeredFonts.hasOwnProperty(family)) {
             fontOptions.fauxBold = true;
             fontOptions.fauxItalic = true;
-            return family;
+            return {
+              fontNameorLink: family,
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
           }
         }
         if (bold && !italic) {
           if (doc._registeredFonts.hasOwnProperty(family + '-Bold')) {
-            return family + '-Bold';
+            return {
+              fontNameorLink: family + '-Bold',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
           } else if (doc._registeredFonts.hasOwnProperty(family)) {
             fontOptions.fauxBold = true;
-            return family;
+            return {
+              fontNameorLink: family,
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
           }
         }
         if (!bold && italic) {
           if (doc._registeredFonts.hasOwnProperty(family + '-Italic')) {
-            return family + '-Italic';
+            return {
+              fontNameorLink: family + '-Italic',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
           } else if (doc._registeredFonts.hasOwnProperty(family)) {
             fontOptions.fauxItalic = true;
-            return family;
+            return {
+              fontNameorLink: family,
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
           }
         }
         if (!bold && !italic) {
           if (doc._registeredFonts.hasOwnProperty(family)) {
-            return family;
+            return {
+              fontNameorLink: family,
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
           }
         }
         // Use standard fonts as fallback
         if (family.match(/(?:^|,)\s*serif\s*$/)) {
-          if (bold && italic) {return 'Times-BoldItalic';}
-          if (bold && !italic) {return 'Times-Bold';}
-          if (!bold && italic) {return 'Times-Italic';}
-          if (!bold && !italic) {return 'Times-Roman';}
+          if (bold && italic) {
+            return {
+              fontNameorLink: 'Times-BoldItalic',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
+          if (bold && !italic) {
+            return {
+              fontNameorLink: 'Times-Bold',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
+          if (!bold && italic) {
+            return {
+              fontNameorLink: 'Times-Italic',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
+          if (!bold && !italic) {
+            return {
+              fontNameorLink: 'Times-Roman',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
         } else if (family.match(/(?:^|,)\s*monospace\s*$/)) {
-          if (bold && italic) {return 'Courier-BoldOblique';}
-          if (bold && !italic) {return 'Courier-Bold';}
-          if (!bold && italic) {return 'Courier-Oblique';}
-          if (!bold && !italic) {return 'Courier';}
+          if (bold && italic) {
+            return {
+              fontNameorLink: 'Courier-BoldOblique',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
+          if (bold && !italic) {
+            return {
+              fontNameorLink: 'Courier-Bold',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
+          if (!bold && italic) {
+            return {
+              fontNameorLink: 'Courier-Oblique',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
+          if (!bold && !italic) {
+            return {
+              fontNameorLink: 'Courier',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
         } else if (family.match(/(?:^|,)\s*sans-serif\s*$/) || true) {
-          if (bold && italic) {return 'Helvetica-BoldOblique';}
-          if (bold && !italic) {return 'Helvetica-Bold';}
-          if (!bold && italic) {return 'Helvetica-Oblique';}
-          if (!bold && !italic) {return 'Helvetica';}
+          if (bold && italic) {
+            return {
+              fontNameorLink: 'Helvetica-BoldOblique',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
+          if (bold && !italic) {
+            return {
+              fontNameorLink: 'Helvetica-Bold',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
+          if (!bold && italic) {
+            return {
+              fontNameorLink: 'Helvetica-Oblique',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
+          if (!bold && !italic) {
+            return {
+              fontNameorLink: 'Helvetica',
+              fauxBold: fontOptions.fauxBold,
+              fauxItalic: fontOptions.fauxItalic,
+            };
+          }
         }
       };
     }
